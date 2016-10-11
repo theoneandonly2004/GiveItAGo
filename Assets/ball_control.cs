@@ -39,11 +39,11 @@ public class ball_control : MonoBehaviour {
     {
         CancelInvoke(invokeSpawnName);
         int rand = Random.Range(0, targets.Length - 1);
-        int randomDelayTime = (int)Random.Range(1.0f, 3.0f);
+        int randomDelayTime = (int)Random.Range(4.0f, 6.0f);
         Debug.Log(rand);
         GameObject spawned = Instantiate(targets[rand]);
         spawned.transform.position = spawnerPosition;
-       
+        timerText.text = "Get Ready!!!";
         Invoke(startInvokeName, randomDelayTime);
 
     }
@@ -58,7 +58,7 @@ public class ball_control : MonoBehaviour {
         {
             SpawnTarget();           
             timeTilSpawn = (int)LevelType.intermediate;
-            timerText.text = "" + timeTilSpawn;
+            timerText.text = "get ready";
 
         }
 
@@ -68,7 +68,7 @@ public class ball_control : MonoBehaviour {
     void RestartInvoke()
     {
         timerText.text = "" + timeTilSpawn;
-        InvokeRepeating(invokeSpawnName, 0.0f, 1.0f);
+        InvokeRepeating(invokeSpawnName, 1.0f, 1.0f);
     }
 
 }
