@@ -15,7 +15,7 @@ public class Destroy_Collision_Object : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("destroyed object " + collider.gameObject.name);
+       // Debug.Log("destroyed object " + collider.gameObject.name);
         DestroyObject(collider.gameObject);
     }
 }
