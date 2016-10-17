@@ -14,7 +14,9 @@ public class collisionetection : MonoBehaviour {
 	}
 
     void OnTriggerEnter(Collider collision)
-    {
-        Debug.Log(this.gameObject.name + ": was collided with by: " + collision.gameObject.name);
+    {   
+        this.gameObject.transform.parent= collision.gameObject.transform.parent;
+        Debug.Log("mommy?");    
+       
     }
 }
