@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DistanceController : MonoBehaviour {
 
     Transform targetZone;
+    Text canvas;
 
     int score = 0;
     float movementDistance = 0.4f;
-    float maxDistanceDiff = 1.5f;
-    float minScoreDiff = 0.5f;
+    float maxDistanceDiff = 1.8f;
+    float minScoreDiff = 0.0f;
     GameObject head;
     Vector3 myPosition, playerPosition , childIndicatorPosition;
     DistanceCollider wallCollision;
@@ -16,9 +18,10 @@ public class DistanceController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         // head = GameObject.Find("Camera (head)");
-
+        canvas = GameObject.Find("PointsCanvas").GetComponent<Text>();
+        head = GameObject.Find("Player");
         wallCollision = this.gameObject.GetComponentInChildren<DistanceCollider>();        
-        head = GameObject.Find("FakePlayer");
+       // head = GameObject.Find("FakePlayer");
         playerPosition = head.transform.position;
         myPosition = this.gameObject.transform.position;
        
@@ -33,26 +36,33 @@ public class DistanceController : MonoBehaviour {
 	
 	}
 
-
-    void DecideMovement()
+    void AllocatePoints()
     {
-        Debug.Log("deciding");
-        float playerPositionX = playerPosition.x;
-        float trainerPositionX = myPosition.x;
-        float difference = playerPositionX - trainerPositionX;
-
-        Debug.Log("the difference is " + difference);
-
         if (wallCollision.getIsCollided())
         {
             Debug.Log("i am collided");
             score += 5;
+
         }
         else
         {
             Debug.Log("i'm not collided");
             score -= 5;
         }
+        canvas.text = "Score:" + score;
+    }
+
+    void DecideMovement()
+    {
+        movementDistance = Random.Range(movementDistance, 1.5f);
+        Debug.Log("deciding");
+        float playerPositionX = playerPosition.x;
+        float trainerPositionX = myPosition.x;
+        float difference = playerPositionX - trainerPositionX;
+
+        Debug.Log("the difference is " + difference);
+        Invoke("AllocatePoints", 1.5f);
+     
 
         Debug.Log(score);
        
@@ -70,7 +80,7 @@ public class DistanceController : MonoBehaviour {
               MoveTowardsPlayer();
             
         }        
-        else if(difference - movementDistance < minScoreDiff)
+        else if(difference - movementDistance > minScoreDiff)
         {
            // score -= 5;
             Debug.Log("I am within range now");
@@ -89,7 +99,7 @@ public class DistanceController : MonoBehaviour {
                 }
                 else
                 {
-                    Debug.Log("rolled a zero but must move tpwards");
+                    Debug.Log("rolled a zero but must move towards");
                     MoveTowardsPlayer();
                 }
             }
@@ -107,7 +117,7 @@ public class DistanceController : MonoBehaviour {
                 }
             }
         }
-
+       
         Debug.Log("the score currently is " + score);
     }
 
@@ -125,5 +135,20 @@ public class DistanceController : MonoBehaviour {
         transform.position = myPosition;
         
         Debug.Log("moving away from player");
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+
+        if (collision.gameObject.name == "front_blocker")
+        {
+            movementDistance = 1.2f;
+            MoveAwayFromPlayer();
+        }
+        else if (collision.gameObject.name == "back_blocker")
+        {
+            movementDistance = 1.2f;
+            MoveTowardsPlayer();
+        }
     }
 }

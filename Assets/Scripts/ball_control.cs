@@ -51,7 +51,7 @@ public class ball_control : MonoBehaviour {
     void Countdown()
     {
         timeTilSpawn -= 1;
-        timerText.text = "" + timeTilSpawn;
+        //timerText.text = "" + timeTilSpawn;
        
 
         if(timeTilSpawn == 0)
@@ -67,7 +67,7 @@ public class ball_control : MonoBehaviour {
 
     void RestartInvoke()
     {
-        timerText.text = "" + timeTilSpawn;
+        //timerText.text = "" + timeTilSpawn;
         InvokeRepeating(invokeSpawnName, 1.0f, 1.0f);
     }
 
