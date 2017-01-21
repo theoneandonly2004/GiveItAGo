@@ -16,7 +16,7 @@ public class SwordTipCollision : MonoBehaviour
     bool hasHit = false;
     int maxLevel = 2;
     int lowestLevel = 0;
-    int currentExercise = 1;
+    int currentExercise = 0;
     int maxTime = 120;
     int timeRemaining;
     string[] sceneNames = { "balloon pop", "dropper", "keepDistance" };
