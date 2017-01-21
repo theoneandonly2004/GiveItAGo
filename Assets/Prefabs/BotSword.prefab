@@ -59,7 +59,7 @@ GameObject:
   - 95: {fileID: 95000011904395142}
   - 114: {fileID: 114000011856611312}
   m_Layer: 0
-  m_Name: Foil sword
+  m_Name: BotSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

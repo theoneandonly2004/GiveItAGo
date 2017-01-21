@@ -35,6 +35,37 @@ public class ball_control : MonoBehaviour {
 	
 	}
 
+    void swapParts(GameObject spawnedPieces) //untested code, the intention of picking 2 parts of target and swapping
+    {
+        int numberOfSwapablePieces = spawnedPieces.transform.childCount;
+        int randomNumberOne = Random.Range(0, numberOfSwapablePieces);
+        int randomNumberTwo = Random.Range(0, numberOfSwapablePieces);
+        GameObject firstPart, secPart;
+        Color firstColor, secondColor;
+        string initialName;
+       
+
+        while(randomNumberOne == randomNumberTwo)
+        {
+            randomNumberTwo = Random.Range(0, numberOfSwapablePieces);
+        }
+
+        firstPart = spawnedPieces.transform.GetChild(randomNumberOne).gameObject;
+        secPart = spawnedPieces.transform.GetChild(randomNumberTwo).gameObject;
+
+        firstColor = firstPart.GetComponent<Renderer>().material.color;
+        secondColor = secPart.GetComponent<Renderer>().material.color;
+
+        initialName = firstPart.name;
+        firstPart.name = secPart.name;
+        firstPart.GetComponent<Renderer>().material.color = secondColor;
+
+        secPart.name = initialName;
+        secPart.GetComponent<Renderer>().material.color = firstColor;
+
+
+    }
+
     void SpawnTarget()
     {
         CancelInvoke(invokeSpawnName);
@@ -42,6 +73,7 @@ public class ball_control : MonoBehaviour {
         int randomDelayTime = (int)Random.Range(4.0f, 6.0f);
         Debug.Log(rand);
         GameObject spawned = Instantiate(targets[rand]);
+        swapParts(spawned); //untested code
         spawned.transform.position = spawnerPosition;
         timerText.text = "Get Ready!!!";
         Invoke(startInvokeName, randomDelayTime);

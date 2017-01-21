@@ -20,6 +20,7 @@ public class SwordTipCollision : MonoBehaviour
     int maxTime = 120;
     int timeRemaining;
     string[] sceneNames = { "balloon pop", "dropper", "keepDistance" };
+    bool isExtended = false;
     // Use this for initialization
     void Start()
     {
@@ -41,12 +42,26 @@ public class SwordTipCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            
+            SteamVR_LoadLevel.Begin(sceneNames[1]);
+        }
     }
 
     void OnDestroy()
     {
         hasHit = false;
+    }
+
+    void OnTriggerExit(Collider collision)
+    {
+        string objectName = collision.gameObject.name;
+        if (objectName == "ExtensionCheck")
+        {
+            isExtended = false;
+        }
+
     }
 
     void OnTriggerEnter(Collider collision)
@@ -60,41 +75,44 @@ public class SwordTipCollision : MonoBehaviour
             Debug.Log("collided with " + objectName);
             if (objectTag == "Target")
             {
-                if (objectName == "balloonTarget")
-                {                    
-                    BalloonControl control = collision.GetComponent<BalloonControl>();
-                    balloonType = control.getBalloonType();
-
-                    switch (balloonType)
+                if (isExtended)
+                {
+                    if (objectName == "balloonTarget")
                     {
-                        case 0:
-                            DestroyObject(collision.gameObject);
-                            score += 1000;
-                            manager.setScore(score);
-                            break;
-                        case 1:
-                            if (control.getIsSwordAlive())
-                            {
-                                Debug.Log("hitting without priority");
-                                score -= 50;
+                        BalloonControl control = collision.GetComponent<BalloonControl>();
+                        balloonType = control.getBalloonType();
 
-                                manager.setScore(score);
-                            }
-                            else
-                            {
+                        switch (balloonType)
+                        {
+                            case 0:
                                 DestroyObject(collision.gameObject);
-                                Debug.Log("nice parry reposte");
-                                score += 50;
+                                score += 1000;
                                 manager.setScore(score);
-                            }
-                            break;
-                        case 2:
-                            DestroyObject(collision.gameObject);
-                            break;
+                                break;
+                            case 1:
+                                if (control.getIsSwordAlive())
+                                {
+                                    Debug.Log("hitting without priority");
+                                    score -= 50;
 
+                                    manager.setScore(score);
+                                }
+                                else
+                                {
+                                    DestroyObject(collision.gameObject);
+                                    Debug.Log("nice parry reposte");
+                                    score += 50;
+                                    manager.setScore(score);
+                                }
+                                break;
+                            case 2:
+                                DestroyObject(collision.gameObject);
+                                break;
+
+                        }
+
+                        Debug.Log("manager score is " + manager.getScore());
                     }
-                   
-                    Debug.Log("manager score is " + manager.getScore());
                 }
             }
 
@@ -102,12 +120,15 @@ public class SwordTipCollision : MonoBehaviour
         else if (objectTag == "Box_Target")
         {
             //SteamVR_Controller.Input(0).GetPressDown(SteamVR_Controller.ButtonMask.Trigger);
-            Debug.Log(objectName);
-            hasHit = true;
-            DetermineTargetPoints(objectName);
-            attachedColliders = collision.GetComponents<BoxCollider>();
-            GameObject parentObject = collision.gameObject.transform.parent.gameObject;
-            Destroy(parentObject);
+            if (isExtended)
+            {
+                Debug.Log(objectName);
+                hasHit = true;
+                DetermineTargetPoints(objectName);
+                attachedColliders = collision.GetComponents<BoxCollider>();
+                GameObject parentObject = collision.gameObject.transform.parent.gameObject;
+                Destroy(parentObject);
+            }
         }
         else if (objectTag == "UI_Element")
         {
@@ -140,6 +161,11 @@ public class SwordTipCollision : MonoBehaviour
                 //SceneManager.LoadScene(currentExercise);
                 SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
             }
+        }
+        else if(objectName == "ExtensionCheck")
+        {
+            isExtended = true;
+            Debug.Log("good job keeping extended");
         }
 
 
