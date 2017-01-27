@@ -7,6 +7,7 @@ public class UnlockableAchievement
 {
    public string name;
     string unlockedText = "";
+    string lockedText = "";
     string tag = "";
     int requiredScore = 0;
     bool isUnlocked = false;
@@ -15,10 +16,11 @@ public class UnlockableAchievement
     GameObject attached;
     AudioClip clip;
     AudioSource source;
-    public UnlockableAchievement(string name , string unlockedText,string tag ,int requiredScore)
+    public UnlockableAchievement(string name , string unlockedText,string lockedText,string tag ,int requiredScore)
     {
         this.tag = tag;
         this.unlockedText = unlockedText;
+        this.lockedText = lockedText;
         this.name = name;
         this.requiredScore = requiredScore;
         //attached = GameObject.Find(name);

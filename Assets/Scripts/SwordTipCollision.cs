@@ -21,18 +21,19 @@ public class SwordTipCollision : MonoBehaviour
     int timeRemaining;
     string[] sceneNames = { "balloon pop", "dropper", "keepDistance" };
     bool isExtended = false;
+    bool isRunningExercise = false;
     // Use this for initialization
     void Start()
     {
         level = SceneManager.GetActiveScene().buildIndex;
         timeRemaining = maxTime;        
-            canvas = GameObject.Find("PointsCanvas").GetComponent<Text>();
-            offTargetText = GameObject.Find("off_target_text");
-            offTargetText.SetActive(false);
-            timerText = GameObject.Find("Timer").GetComponent<Text>();
-        timerText.text = "" + timeRemaining + " seconds remaining";
+            //canvas = GameObject.Find("PointsCanvas").GetComponent<Text>();
+            //offTargetText = GameObject.Find("off_target_text");
+            //offTargetText.SetActive(false);
+            //timerText = GameObject.Find("Timer").GetComponent<Text>();
+        //timerText.text = "" + timeRemaining + " seconds remaining";
 
-        InvokeRepeating("CountdownGame", 1.0f, 1.0f);
+        //InvokeRepeating("CountdownGame", 1.0f, 1.0f);
 
         manager = GameObject.Find("GameManager").GetComponent<PauseMenu>();
         currentExercise = SceneManager.GetActiveScene().buildIndex;
@@ -42,11 +43,24 @@ public class SwordTipCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            
-            SteamVR_LoadLevel.Begin(sceneNames[1]);
-        }
+      
+    }
+
+   public void Setup()
+    {
+        level = SceneManager.GetActiveScene().buildIndex;
+        timeRemaining = maxTime;
+        canvas = GameObject.Find("PointsCanvas").GetComponent<Text>();
+        offTargetText = GameObject.Find("off_target_text");
+        offTargetText.SetActive(false);
+        timerText = GameObject.Find("Timer").GetComponent<Text>();
+        timerText.text = "" + timeRemaining + " seconds remaining";
+
+        InvokeRepeating("CountdownGame", 1.0f, 1.0f);
+
+        manager = GameObject.Find("GameManager").GetComponent<PauseMenu>();
+        currentExercise = SceneManager.GetActiveScene().buildIndex;
+        currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
     }
 
     void OnDestroy()
@@ -132,35 +146,7 @@ public class SwordTipCollision : MonoBehaviour
         }
         else if (objectTag == "UI_Element")
         {
-            if (objectName == "Exit(Clone)")
-            {
-                Debug.Log("application ended");
-
-            }
-            else if (objectName == "NextExercise(Clone)")
-            {
-                timeRemaining = maxTime;
-                PlayerScoreClass currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
-                currentExerciseScore.setFinalScore(score);
-                KeyComponents.scoreStorage.outputToFile();
-
-                //Application.LoadLevel(1);
-                if (currentExercise+1 > maxLevel)
-                {                   
-                    currentExercise = lowestLevel;
-                }
-                else
-                {
-                    score = 0;
-                    currentExercise++;
-                    //SceneManager.LoadScene(currentExercise);
-                    SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
-                }
-                score = 0;
-                Debug.Log("the current exercise numnber is " +currentExercise);
-                //SceneManager.LoadScene(currentExercise);
-                SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
-            }
+            manageUICollision(objectName);
         }
         else if(objectName == "ExtensionCheck")
         {
@@ -168,6 +154,67 @@ public class SwordTipCollision : MonoBehaviour
             Debug.Log("good job keeping extended");
         }
 
+
+    }
+
+    void manageUICollision(string objectName)
+    {
+        string gauntletName = "Gauntlet";
+        string dropperName = "Dropper";
+        string keepDistanceName = "KeepDistance";
+        string balloonPopName = "BalloonPop";
+
+        if (objectName == "Exit(Clone)")
+        {
+            SteamVR_LoadLevel.Begin("MainMenu");
+
+        }
+        else if (objectName == "NextExercise(Clone)")
+        {
+            timeRemaining = maxTime;
+            PlayerScoreClass currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
+            currentExerciseScore.setFinalScore(score);
+            KeyComponents.scoreStorage.outputToFile();
+
+            //Application.LoadLevel(1);
+            if (currentExercise + 1 > maxLevel)
+            {
+                currentExercise = lowestLevel;
+            }
+            else
+            {
+                score = 0;
+                currentExercise++;
+                //SceneManager.LoadScene(currentExercise);
+                SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
+            }
+            score = 0;
+            Debug.Log("the current exercise numnber is " + currentExercise);
+            //SceneManager.LoadScene(currentExercise);
+            SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
+        }
+        else
+        {
+            if(objectName == gauntletName)
+            {
+                Debug.Log("now starting gauntlet run");
+            }
+            else if(objectName == balloonPopName)
+            {
+                SteamVR_LoadLevel.Begin(sceneNames[0]);
+                Setup();
+            }
+            else if(objectName == dropperName)
+            {
+                SteamVR_LoadLevel.Begin(sceneNames[1]);
+                Setup();
+            }
+            else if (objectName == keepDistanceName)
+            {
+                SteamVR_LoadLevel.Begin(sceneNames[2]);
+                Setup();
+            }
+        }
 
     }
 

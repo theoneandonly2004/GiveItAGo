@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 
     int numberOfScenes = 0;
     string[] sceneNames;
+    string gameMode = "";
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,11 @@ public class GameManager : MonoBehaviour {
         controller = GameObject.Find("Controller (right)");
         controller.GetComponent<ControllerManager>().TriggerPulse(0.5f, 1.0f);
 
+    }
+
+    public string getGameMode()
+    {
+        return gameMode;
     }
 
 

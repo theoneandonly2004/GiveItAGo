@@ -15,8 +15,8 @@ public class AchievementList : MonoBehaviour {
 
     public static void registerAchievements()
     {
-        popABalloon = new UnlockableAchievement("popABalloon", "you popped a balloon good job", targetTag, 1);
-        score1000 = new UnlockableAchievement("score1000", "you score 1000 points awesome", targetTag, 1000);
+        popABalloon = new UnlockableAchievement("popABalloon", "you popped a balloon good job","you need to go pop the evil balloons", targetTag, 1);
+        score1000 = new UnlockableAchievement("score1000", "you score 1000 points awesome","score 1000 points in balloon pop", targetTag, 1000);
 
         UnlockableAchievement[] unlockable = new UnlockableAchievement[Achievement.achievements.Count];
         Achievement.achievements.Values.CopyTo(unlockable, 0);
