@@ -6,7 +6,7 @@ public class SceneLoad : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        SteamVR_LoadLevel.Begin("balloon pop");
+        SteamVR_LoadLevel.Begin("MainMenu");
 	}
 	
 	// Update is called once per frame
