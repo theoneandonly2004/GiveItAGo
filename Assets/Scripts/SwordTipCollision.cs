@@ -168,7 +168,7 @@ public class SwordTipCollision : MonoBehaviour
         }
         else if (objectTag == "UI_Element")
         {
-            manageUICollision(objectName);
+            manageUICollision(collision.gameObject);
         }
         else if(objectName == "ExtensionCheck")
         {
@@ -179,12 +179,14 @@ public class SwordTipCollision : MonoBehaviour
 
     }
 
-    void manageUICollision(string objectName)
+    void manageUICollision(GameObject collidedObject)
     {
+        string objectName = collidedObject.name;
         string gauntletName = "Gauntlet";
         string dropperName = "Dropper";
         string keepDistanceName = "KeepDistance";
         string balloonPopName = "BalloonPop";
+        string achievementsText = "Achievements";
 
         if (objectName == "Exit(Clone)")
         {
@@ -193,6 +195,13 @@ public class SwordTipCollision : MonoBehaviour
             Setup(true);
             //CancelInvoke();
 
+        }
+        else if(objectName == "Exit")
+        {
+            SteamVR_LoadLevel.Begin("MainMenu");
+            currentExercise = -1;
+            Setup(true);
+            Destroy(collidedObject);
         }
         else if (objectName == "NextExercise(Clone)")
         {
@@ -267,6 +276,10 @@ public class SwordTipCollision : MonoBehaviour
                 SteamVR_LoadLevel.Begin(sceneNames[2]);
                 currentExercise = 2;
                 Setup(false);
+            }
+            else if (objectName == achievementsText)
+            {                
+                SteamVR_LoadLevel.Begin("AchievementScene");                
             }
         }
 

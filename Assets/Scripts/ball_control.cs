@@ -39,7 +39,7 @@ public class ball_control : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {      
 	
 	}
 
@@ -103,29 +103,33 @@ public class ball_control : MonoBehaviour {
       
 
         int randomDelayTime = (int)Random.Range(4.0f, 6.0f);
-        Debug.Log(rand);
+        
         GameObject spawned = Instantiate(targets[rand]);
 
         if (shouldTargetChange > minColorChange)
         {
+            Debug.Log("changing parts");
             swapParts(spawned);
         }
         if(shouldTargetChange > minSmallSizeChange && shouldTargetChange < midSizeChange)
         {
+            Debug.Log("small scale");
             scaleObject(spawned,2);  
         }
         else if(shouldTargetChange > midSizeChange && shouldTargetChange < bigSizeChange)
         {
+            Debug.Log("mid scale");
             scaleObject(spawned,3);
         }
         else if(shouldTargetChange > bigSizeChange)
         {
+            Debug.Log("large scale");
             scaleObject(spawned,4);
         }
 
 
 
-        swapParts(spawned); //untested code
+        //swapParts(spawned); //untested code
         spawned.transform.position = spawnerPosition;
         //spawned.transform.rotation.Set(0, -90, 0,0);
         timerText.text = "Get Ready!!!";
