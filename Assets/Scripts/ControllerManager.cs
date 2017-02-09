@@ -23,7 +23,7 @@ public class ControllerManager : MonoBehaviour
         if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
             //device.TriggerHapticPulse(3999);
-            TriggerPulse(0.2f,1.0f);
+            //TriggerPulse(0.2f,1.0f);
 
             pauser.managePause((int)device.GetAxis().x);
         }

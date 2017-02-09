@@ -77,6 +77,11 @@ public class PauseMenu : MonoBehaviour
         return score;
     }
 
+    public void setIsPaused(bool isPaused)
+    {
+        this.isPaused = isPaused;
+    }
+
     public void setScore(int score)
     {
         this.score = score;

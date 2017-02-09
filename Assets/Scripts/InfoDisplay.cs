@@ -16,15 +16,18 @@ public class InfoDisplay : MonoBehaviour {
       
         if (canDisplay)
         {
+            Transform cam = this.transform;             
+            Ray finderRay = new Ray(cam.position, cam.forward);
             RaycastHit hit;
-            Ray finderRay = new Ray(transform.position, Vector3.forward);
-
-            if (Physics.Raycast(finderRay, out hit, 50))
+            if (Physics.Raycast(finderRay, out hit, 150))
             {
-                if (hit.collider.tag == "Achievement")
+
+                /*if (hit.collider.tag == "Achievement")
                 {
                     Debug.Log(hit.collider.name + " was hit");
-                }
+                }*/
+
+                Debug.Log("raycast found " + hit.collider.name);
             }
         }
 

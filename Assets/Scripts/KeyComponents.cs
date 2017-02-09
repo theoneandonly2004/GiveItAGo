@@ -12,7 +12,7 @@ public class KeyComponents : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	    gameManager = GameObject.Find("GameManager");
-        pauseMenu = gameManager.GetComponent<PauseMenu>();
+        pauseMenu = this.GetComponent<PauseMenu>();
        // controlManager = GameObject.Find("Controller (right)").GetComponent<ControllerManager>();
         scoreStorage = gameManager.GetComponent<PlayerScore>();
     

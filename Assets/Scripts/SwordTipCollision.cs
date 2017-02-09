@@ -7,7 +7,7 @@ public class SwordTipCollision : MonoBehaviour
 {
 
     int score = 0; // this will be moved at a later stage to a more permenant location
-    Text canvas , timerText;
+    Text canvas , timerText , scoreDisplay;
     PauseMenu manager;
     GameObject offTargetText;
     PlayerScoreClass currentExerciseScore;
@@ -26,7 +26,8 @@ public class SwordTipCollision : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        level = SceneManager.GetActiveScene().buildIndex;
+        scoreDisplay = GameObject.Find("Score_Display").GetComponent<Text>();
+       level = SceneManager.GetActiveScene().buildIndex;
         timeRemaining = maxTime;        
             canvas = GameObject.Find("PointsCanvas").GetComponent<Text>();
             offTargetText = GameObject.Find("off_target_text");
@@ -39,6 +40,9 @@ public class SwordTipCollision : MonoBehaviour
         manager = GameObject.Find("GameManager").GetComponent<PauseMenu>();
         //currentExercise = SceneManager.GetActiveScene().buildIndex;
         currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
+
+        SteamVR_LoadLevel.Begin("MainMenu");
+        Setup(true);
 
     }
 
@@ -62,11 +66,14 @@ public class SwordTipCollision : MonoBehaviour
         //offTargetText.SetActive(false);
         //timerText = GameObject.Find("Timer").GetComponent<Text>();
         CancelInvoke("CountdownGame");
+        score = 0;
+        scoreDisplay.text = "Score:" + score;
 
         if (!isLoadingMainMenu)
         {
             //offTargetText = GameObject.Find("off_target_text");
             //offTargetText.SetActive(false);
+
             InvokeRepeating("CountdownGame", 1.0f, 1.0f);
             timerText.text = "" + timeRemaining + " seconds remaining";
             //offTargetText.SetActive(false);
@@ -122,7 +129,7 @@ public class SwordTipCollision : MonoBehaviour
                         {
                             case 0:
                                 DestroyObject(collision.gameObject);
-                                score += 1000;
+                                score += 10000;
                                 manager.setScore(score);
                                 break;
                             case 1:
@@ -148,6 +155,7 @@ public class SwordTipCollision : MonoBehaviour
                         }
 
                         Debug.Log("manager score is " + manager.getScore());
+                        scoreDisplay.text = "Score " + score;
                     }
                 }
             }
@@ -188,8 +196,15 @@ public class SwordTipCollision : MonoBehaviour
         string balloonPopName = "BalloonPop";
         string achievementsText = "Achievements";
 
+        PlayerScoreClass currentExerciseScore;
+
+
+
+        Text highScoreDisplay = GameObject.Find("High_Score_Display").GetComponent<Text>();
+
         if (objectName == "Exit(Clone)")
         {
+            KeyComponents.pauseMenu.setIsPaused(false);
             SteamVR_LoadLevel.Begin("MainMenu");
             currentExercise = -1;
             Setup(true);
@@ -198,6 +213,7 @@ public class SwordTipCollision : MonoBehaviour
         }
         else if(objectName == "Exit")
         {
+            KeyComponents.pauseMenu.setIsPaused(false);
             SteamVR_LoadLevel.Begin("MainMenu");
             currentExercise = -1;
             Setup(true);
@@ -206,7 +222,7 @@ public class SwordTipCollision : MonoBehaviour
         else if (objectName == "NextExercise(Clone)")
         {
             timeRemaining = maxTime;
-            PlayerScoreClass currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
+            currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
             currentExerciseScore.setFinalScore(score);
             KeyComponents.scoreStorage.outputToFile();
 
@@ -216,6 +232,7 @@ public class SwordTipCollision : MonoBehaviour
                 //Application.LoadLevel(1);
                 if (currentExercise + 1 > maxLevel)
                 {
+                    
                     //currentExercise = lowestLevel;
                     SteamVR_LoadLevel.Begin("MainMenu");
                     currentExercise = -1;
@@ -231,11 +248,11 @@ public class SwordTipCollision : MonoBehaviour
                     SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
                 }
 
-                score = 0;
+               /* score = 0;
                 manager.setScore(score);
                 Debug.Log("the current exercise numnber is " + currentExercise);
                 //SceneManager.LoadScene(currentExercise);
-                SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
+                SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);*/
             }
             else
             {
@@ -247,12 +264,16 @@ public class SwordTipCollision : MonoBehaviour
         }
         else
         {
-            if(objectName == gauntletName)
+            
+            if (objectName == gauntletName)
             {
+                
                 currentGameName = "Gauntlet";
                 SteamVR_LoadLevel.Begin(sceneNames[0]);
                 currentExercise = 0;
                 Setup(false);
+                currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(0);
+                highScoreDisplay.text = "High Score:" + currentExerciseScore.highestScore;
                 //Debug.Log("now starting gauntlet run");
             }
             else if(objectName == balloonPopName)
@@ -261,14 +282,17 @@ public class SwordTipCollision : MonoBehaviour
                 SteamVR_LoadLevel.Begin(sceneNames[0]);
                 currentExercise = 0;
                 Setup(false);
+                currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(0);
+                highScoreDisplay.text = "High Score:" + currentExerciseScore.highestScore;
             }
             else if(objectName == dropperName)
             {
                 currentGameName = "Dropper";
                 SteamVR_LoadLevel.Begin(sceneNames[1]);
-                currentExercise = 1;
-                
+                currentExercise = 1;                
                 Setup(false);
+                currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(1);
+                highScoreDisplay.text = "High Score:" + currentExerciseScore.highestScore;
             }
             else if (objectName == keepDistanceName)
             {
@@ -276,6 +300,8 @@ public class SwordTipCollision : MonoBehaviour
                 SteamVR_LoadLevel.Begin(sceneNames[2]);
                 currentExercise = 2;
                 Setup(false);
+                currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(2);
+                highScoreDisplay.text = "High Score:" + currentExerciseScore.highestScore;
             }
             else if (objectName == achievementsText)
             {                
@@ -287,6 +313,8 @@ public class SwordTipCollision : MonoBehaviour
 
     void LoadLevel()
     {
+
+
         if (currentGameName == "Gauntlet")
         {
             timeRemaining = maxTime;
@@ -310,12 +338,12 @@ public class SwordTipCollision : MonoBehaviour
                 Setup(false);
             }
 
-            score = 0;
+            /*score = 0;
             manager.setScore(score);
             Debug.Log("the current exercise numnber is " + currentExercise);
             //SceneManager.LoadScene(currentExercise);
             SteamVR_LoadLevel.Begin(sceneNames[currentExercise]);
-            Setup(false);
+            Setup(false);*/
         }
         else
         {
@@ -335,6 +363,10 @@ public class SwordTipCollision : MonoBehaviour
 
             if (timeRemaining <= 0)
             {
+
+                currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
+                currentExerciseScore.setFinalScore(manager.getScore());
+                KeyComponents.scoreStorage.outputToFile();
                 /*timeRemaining = maxTime;
 
                 if (currentExercise + 1 > maxLevel)
@@ -386,7 +418,7 @@ public class SwordTipCollision : MonoBehaviour
         }
         Debug.Log(score);
         manager.setScore(score);
-        GameObject.Find("Score_Display").GetComponent<Text>().text = "Score " + score;
+       scoreDisplay.text = "Score " + score;
     }
 
 
