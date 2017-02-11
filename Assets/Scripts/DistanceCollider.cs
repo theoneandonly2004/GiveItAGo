@@ -2,9 +2,12 @@
 using System.Collections;
 
 public class DistanceCollider : MonoBehaviour {
-    bool isCollided = false;
+    public bool isCollided = false;
+    int score = 0;
+    float waitTime = 5;
 	// Use this for initialization
 	void Start () {
+        InvokeRepeating("CheckCollisionForPoints",waitTime,waitTime);
 	
 	}
 	
@@ -12,6 +15,19 @@ public class DistanceCollider : MonoBehaviour {
 	void Update () {
 	    
 	}
+
+    void CheckCollisionForPoints()
+    {
+        Debug.Log("your score is now " + score);
+        if (isCollided)
+        {
+            score += 5;
+        }
+        else
+        {
+            score -= 5;
+        }
+    }
 
     public bool getIsCollided()
     {
