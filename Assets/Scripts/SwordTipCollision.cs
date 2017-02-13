@@ -23,11 +23,14 @@ public class SwordTipCollision : MonoBehaviour
     string currentGameName = "";
     bool isExtended = false;
     bool isRunningExercise = false;
+    Text highScoreDisplay;
+
     // Use this for initialization
     void Start()
     {
         scoreDisplay = GameObject.Find("Score_Display").GetComponent<Text>();
-       level = SceneManager.GetActiveScene().buildIndex;
+        highScoreDisplay = GameObject.Find("High_Score_Display").GetComponent<Text>();
+        level = SceneManager.GetActiveScene().buildIndex;
         timeRemaining = maxTime;        
             canvas = GameObject.Find("PointsCanvas").GetComponent<Text>();
             offTargetText = GameObject.Find("off_target_text");
@@ -68,6 +71,7 @@ public class SwordTipCollision : MonoBehaviour
         CancelInvoke("CountdownGame");
         score = 0;
         scoreDisplay.text = "Score:" + score;
+        highScoreDisplay.text = "High Score:0";
 
         if (!isLoadingMainMenu)
         {

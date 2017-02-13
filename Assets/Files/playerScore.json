@@ -1,16 +1,16 @@
 {
     "exerciseScores": [
         {
-            "lastSessionScore": 20000,
-            "highestScore": 20000
-        },
-        {
-            "lastSessionScore": 44,
-            "highestScore": 44
+            "lastSessionScore": 0,
+            "highestScore": 0
         },
         {
             "lastSessionScore": 0,
-            "highestScore": 2000
+            "highestScore": 0
+        },
+        {
+            "lastSessionScore": 0,
+            "highestScore": 0
         }
     ]
 }

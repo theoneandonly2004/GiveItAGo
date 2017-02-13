@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DistanceCollider : MonoBehaviour {
     public bool isCollided = false;
     int score = 0;
     float waitTime = 5;
+    Text scoreDisplay;
+    PauseMenu manager;
 	// Use this for initialization
 	void Start () {
+        scoreDisplay = GameObject.Find("Score_Display").GetComponent<Text>();
         InvokeRepeating("CheckCollisionForPoints",waitTime,waitTime);
-	
-	}
+        manager = GameObject.Find("GameManager").GetComponent<PauseMenu>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,6 +32,9 @@ public class DistanceCollider : MonoBehaviour {
         {
             score -= 5;
         }
+
+        manager.setScore(score);
+        scoreDisplay.text = "Score:" + manager.getScore();
     }
 
     public bool getIsCollided()
