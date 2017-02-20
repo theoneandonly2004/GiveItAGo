@@ -19,7 +19,7 @@ public class SwordTipCollision : MonoBehaviour
     int currentExercise = -1;
     int maxTime = 20; //120 for real uses , 20 for testing
     int timeRemaining;
-    string[] sceneNames = { "balloon pop", "dropper", "keepDistance" };
+    string[] sceneNames = { "balloon pop", "dropper", "keepDistance" , "hitZone"};
     string currentGameName = "";
     bool isExtended = false;
     bool isRunningExercise = false;
@@ -28,6 +28,7 @@ public class SwordTipCollision : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        maxLevel = sceneNames.Length;
         scoreDisplay = GameObject.Find("Score_Display").GetComponent<Text>();
         highScoreDisplay = GameObject.Find("High_Score_Display").GetComponent<Text>();
         level = SceneManager.GetActiveScene().buildIndex;
@@ -47,6 +48,11 @@ public class SwordTipCollision : MonoBehaviour
         SteamVR_LoadLevel.Begin("MainMenu");
         Setup(true);
 
+    }
+
+    public PauseMenu GetManagerObject()
+    {
+        return manager;
     }
 
     // Update is called once per frame
@@ -178,6 +184,11 @@ public class SwordTipCollision : MonoBehaviour
                 Destroy(parentObject);
             }
         }
+        else if(objectTag == "Light_Target")
+        {
+            Debug.Log("i hit a light y'all");
+            collision.gameObject.GetComponent<TargetLight>().setWasHit(true);
+        }
         else if (objectTag == "UI_Element")
         {
             manageUICollision(collision.gameObject);
@@ -199,6 +210,7 @@ public class SwordTipCollision : MonoBehaviour
         string keepDistanceName = "KeepDistance";
         string balloonPopName = "BalloonPop";
         string achievementsText = "Achievements";
+        string hitZoneName = "HitZone";
 
         PlayerScoreClass currentExerciseScore;
 
@@ -268,6 +280,7 @@ public class SwordTipCollision : MonoBehaviour
         }
         else
         {
+
             
             if (objectName == gauntletName)
             {
@@ -305,6 +318,15 @@ public class SwordTipCollision : MonoBehaviour
                 currentExercise = 2;
                 Setup(false);
                 currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(2);
+                highScoreDisplay.text = "High Score:" + currentExerciseScore.highestScore;
+            }
+            else if(objectName == hitZoneName)
+            {
+                currentGameName = "hitZone";
+                SteamVR_LoadLevel.Begin(sceneNames[3]);
+                currentExercise = 3;
+                Setup(false);
+                currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(3);
                 highScoreDisplay.text = "High Score:" + currentExerciseScore.highestScore;
             }
             else if (objectName == achievementsText)

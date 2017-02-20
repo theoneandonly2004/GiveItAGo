@@ -8,6 +8,7 @@ public class DistanceCollider : MonoBehaviour {
     float waitTime = 5;
     Text scoreDisplay;
     PauseMenu manager;
+    public GameObject childOne, childTwo;
 	// Use this for initialization
 	void Start () {
         scoreDisplay = GameObject.Find("Score_Display").GetComponent<Text>();
@@ -46,6 +47,10 @@ public class DistanceCollider : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
+            //this.GetComponent<Renderer>().material.color = Color.green;
+            childOne.GetComponent<Renderer>().material.color = Color.green;
+            childTwo.GetComponent<Renderer>().material.color = Color.green;
+
             isCollided = true;
         }
     }
@@ -54,6 +59,9 @@ public class DistanceCollider : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
+           // this.GetComponent<Renderer>().material.color = Color.red;
+            childOne.GetComponent<Renderer>().material.color = Color.red;
+            childTwo.GetComponent<Renderer>().material.color = Color.red;
             isCollided = false;
         }
     }

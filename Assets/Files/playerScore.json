@@ -2,14 +2,18 @@
     "exerciseScores": [
         {
             "lastSessionScore": 0,
-            "highestScore": 0
+            "highestScore": 0	
         },
         {
             "lastSessionScore": 0,
             "highestScore": 0
         },
         {
-            "lastSessionScore": 0,
+            "lastSessionScore": -5,
+            "highestScore": 0
+        },
+        {
+            "lastSessionScore": -10,
             "highestScore": 0
         }
     ]

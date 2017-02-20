@@ -27,6 +27,8 @@ public class PlayerScoreClass
    public int highestScore = 0;
     int currentScore = 0;
 
+
+
     public PlayerScoreClass(string exerciseName)
     {
         this.exerciseName = exerciseName;
@@ -49,12 +51,12 @@ public class PlayerScoreClass
 }
 
 public class PlayerScore : MonoBehaviour {
-    string[] exerciseNames = { "balloon pop", "target practice", "keep distance" };
+    string[] exerciseNames = { "balloon pop", "target practice", "keep distance" , "hit zone" };
     PlayerScoreClass[] exerciseScores;
 
     // Use this for initialization
     void Start () {
-        exerciseScores = new PlayerScoreClass[3];
+        exerciseScores = new PlayerScoreClass[4];
         
         for(int count = 0; count < exerciseScores.Length; count++)
         {

@@ -23,23 +23,30 @@ public class ManageDistance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (newTarget && canChoose)
+        if (canChoose)
         {
-            StopCoroutine("MoveFunction");
-
-            //int targetNumber = Random.Range(0, 4);
             canChoose = false;
-            SelectTarget();
+            if (newTarget)
+            {
+                StopCoroutine("MoveFunction");
 
-            if (target != null)
-            {
-                StartCoroutine(MoveFunction(target));
-            }
-            else
-            {
+                //int targetNumber = Random.Range(0, 4);
+                canChoose = false;
                 SelectTarget();
+
+                if (target != null)
+                {
+                    StartCoroutine(MoveFunction(target));
+                }
+                else
+                {
+                    SelectTarget();
+                }
             }
+        }
+        else
+        {
+            Debug.Log("cant move yet");
         }
 
     }
@@ -80,16 +87,16 @@ public class ManageDistance : MonoBehaviour
             if ((transform.position - target).magnitude < 0.001f)
             {
                 newTarget = true;
-                Invoke("SetCanChoose", 2.0f);
+                Invoke("SetCanChoose", .2f);
                 yield break;
             }
 
-            if(protectCounter > 50)
+            /*if(protectCounter > 50)
             {
                 newTarget = true;
                 canChoose = true;
                 yield break;
-            }
+            }*/
 
             // Otherwise, continue next frame
             newTarget = false;
