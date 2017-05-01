@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e4eeb39037939114aa23716bed91d3d3
+timeCreated: 1493646894
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - engarde: {fileID: 15200000, guid: b2680826d81f8f94e910fdac066c30f2, type: 3}
+  - lunge: {fileID: 15200000, guid: 81325d15bced97440b9d3eed4654b1b9, type: 3}
+  - move: {fileID: 15200000, guid: 95b0e9e8e8dee664dbc5c85e14e2523c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

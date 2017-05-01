@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class SwordTipCollision : MonoBehaviour
 {
@@ -17,9 +18,10 @@ public class SwordTipCollision : MonoBehaviour
     int maxLevel = 3;
     int lowestLevel = 0;
     int currentExercise = -1;
-    int maxTime = 20; //120 for real uses , 20 for testing
+    int maxTime = 120; //120 for real uses , 20 for testing
     int timeRemaining;
     string[] sceneNames = { "balloon pop", "dropper", "keepDistance" , "hitZone"};
+    SwordInformation[] gameSwordInfo;
     string currentGameName = "";
     bool isExtended = false;
     bool isRunningExercise = false;
@@ -28,6 +30,12 @@ public class SwordTipCollision : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        gameSwordInfo = new SwordInformation[sceneNames.Length];
+
+        for(int count = 0; count < gameSwordInfo.Length; count++)
+        {
+            gameSwordInfo[count] = new SwordInformation();
+        }
         maxLevel = sceneNames.Length;
         scoreDisplay = GameObject.Find("Score_Display").GetComponent<Text>();
         highScoreDisplay = GameObject.Find("High_Score_Display").GetComponent<Text>();
@@ -58,6 +66,10 @@ public class SwordTipCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            StartCoroutine(doMovement());
+        }
       
     }
 
@@ -95,6 +107,8 @@ public class SwordTipCollision : MonoBehaviour
             offTargetText.SetActive(false);
             //timerText.gameObject.SetActive(false);
             timerText.text = "no game in progress";
+
+            
         }
 
         manager = GameObject.Find("GameManager").GetComponent<PauseMenu>();
@@ -193,11 +207,26 @@ public class SwordTipCollision : MonoBehaviour
         {
             manageUICollision(collision.gameObject);
         }
+        else if (objectTag == "Movie_Control")
+        {
+            MoviePlayer player = GameObject.Find("MovieDisplay").GetComponent<MoviePlayer>();
+            if (objectName == "Back")
+            {
+                Debug.Log("going back");
+                player.skipBack();
+            }
+            else
+            {
+                Debug.Log("going forward");
+                player.skipForward();
+            }
+        }
         else if(objectName == "ExtensionCheck")
         {
             isExtended = true;
             Debug.Log("good job keeping extended");
         }
+      
 
 
     }
@@ -380,15 +409,48 @@ public class SwordTipCollision : MonoBehaviour
         }
     }
 
+   IEnumerator doMovement()
+    {
+        bool canEnd = false;
+        int currentPos = 0;
+        GameObject parent = this.transform.parent.gameObject;
+        while (!canEnd)
+        {
+            parent.transform.position = gameSwordInfo[0].getPositionAtTime(currentPos);
+            yield return new WaitForSeconds(1.0f);
+
+            currentPos++;
+
+            if(gameSwordInfo[0].getSwordPositionList().Count <= currentPos)
+            {
+                canEnd = true;
+            }
+
+        }
+
+       
+
+    }
+
     void CountdownGame()
     {      
         if (!KeyComponents.pauseMenu.getIsPaused())
         {
+            gameSwordInfo[currentExercise].addSwordPosition(this.transform.parent.gameObject.transform.position);
+            gameSwordInfo[currentExercise].addSwordState(isExtended);
+
+            
+       
             timeRemaining -= 1;
             timerText.text = "" + timeRemaining + " seconds remaining";
 
             if (timeRemaining <= 0)
             {
+
+                for(int count = 0; count < gameSwordInfo[currentExercise].getSwordPositionList().Count; count++)
+                {
+                    Debug.Log(gameSwordInfo[currentExercise].getSwordPositionList()[count]);
+                }
 
                 currentExerciseScore = manager.GetComponent<PlayerScore>().getExerciseScore(currentExercise);
                 currentExerciseScore.setFinalScore(manager.getScore());

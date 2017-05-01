@@ -6,6 +6,7 @@ public class AchievementList : MonoBehaviour {
 
     public static UnlockableAchievement popABalloon;
     public static UnlockableAchievement score1000;
+    public static UnlockableAchievement watchAllVideos;
 
     private static int repeatCounts = 0;
     private static int maxRepeats = 6;
@@ -17,6 +18,8 @@ public class AchievementList : MonoBehaviour {
     {
         popABalloon = new UnlockableAchievement("popABalloon", "you popped a balloon good job","you need to go pop the evil balloons", targetTag, 1);
         score1000 = new UnlockableAchievement("score1000", "you score 1000 points awesome","score 1000 points in balloon pop", targetTag, 1000);
+        watchAllVideos = new UnlockableAchievement("watchAllVideos", "you have watched all the learning videos", "watch the learning videos in the main menu", targetTag, 0);
+
 
         UnlockableAchievement[] unlockable = new UnlockableAchievement[Achievement.achievements.Count];
         Achievement.achievements.Values.CopyTo(unlockable, 0);

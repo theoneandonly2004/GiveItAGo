@@ -46,7 +46,7 @@ public class ManageDistance : MonoBehaviour
         }
         else
         {
-            Debug.Log("cant move yet");
+            //Debug.Log("cant move yet");
         }
 
     }
@@ -78,7 +78,7 @@ public class ManageDistance : MonoBehaviour
         while (true)
         {
             protectCounter++;
-            print("into MoveFunction While");
+            //print("into MoveFunction While");
             timeSinceStarted += Time.deltaTime;
             
             transform.position = Vector3.Lerp(transform.position, target, 0.4f * LerpFraction);

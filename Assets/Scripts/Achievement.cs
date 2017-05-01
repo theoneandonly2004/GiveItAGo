@@ -81,8 +81,8 @@ public class UnlockableAchievement
                 //source.clip = clip;
                 //source.Play();
                 setUnlocked(true);
-
-                //AchievementList.saveAchievements();
+                Debug.Log(name + " was unlockd");
+                AchievementList.saveAchievements();
                 AudioSource.PlayClipAtPoint(clip, playPos);
                 return true;
                // AchievementList.saveAchievements();
@@ -91,6 +91,8 @@ public class UnlockableAchievement
                 {
 
                 setUnlocked(true);
+                Debug.Log(name + " was unlockd");
+                AchievementList.saveAchievements();
 
                 return true;
                 }

@@ -5,7 +5,7 @@ public class AchievementManager : MonoBehaviour {
         
 	// Use this for initialization
 	void Start () {
-        Achievement.achievements["popABalloon"].setUnlocked(true);
+        //Achievement.achievements["popABalloon"].setUnlocked(true);
         loadAchievementScene();
 	}
 	
