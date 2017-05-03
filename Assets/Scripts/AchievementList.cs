@@ -7,6 +7,9 @@ public class AchievementList : MonoBehaviour {
     public static UnlockableAchievement popABalloon;
     public static UnlockableAchievement score1000;
     public static UnlockableAchievement watchAllVideos;
+    public static UnlockableAchievement thatsABullseye;
+    public static UnlockableAchievement completeGauntlet;
+
 
     private static int repeatCounts = 0;
     private static int maxRepeats = 6;
@@ -16,9 +19,11 @@ public class AchievementList : MonoBehaviour {
 
     public static void registerAchievements()
     {
-        popABalloon = new UnlockableAchievement("popABalloon", "you popped a balloon good job","you need to go pop the evil balloons", targetTag, 1);
+        popABalloon = new UnlockableAchievement("popABalloon", "you popped a balloon good job","you need to go pop the evil balloons", targetTag, 0);
         score1000 = new UnlockableAchievement("score1000", "you score 1000 points awesome","score 1000 points in balloon pop", targetTag, 1000);
         watchAllVideos = new UnlockableAchievement("watchAllVideos", "you have watched all the learning videos", "watch the learning videos in the main menu", targetTag, 0);
+        thatsABullseye = new UnlockableAchievement("thatsABullseye", "you hit a bullseye in dropper", "you need to hit the red zone in dropper", targetTag, 0);
+        completeGauntlet = new UnlockableAchievement("completeGauntlet", "you finished all exercises in gauntlet", "you need to do a session in gauntlet", targetTag, 0);
 
 
         UnlockableAchievement[] unlockable = new UnlockableAchievement[Achievement.achievements.Count];

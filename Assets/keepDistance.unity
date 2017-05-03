@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1678836, g: 0.21073584, b: 0.2899406, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -71,7 +71,8 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000001, guid: d98e97e1f167974478e81b1daecdf0c3,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -992,8 +993,8 @@ GameObject:
   m_Component:
   - component: {fileID: 589369788}
   m_Layer: 0
-  m_Name: FirstPoint (1)
-  m_TagString: Untagged
+  m_Name: SixthPoint
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1106,7 +1107,7 @@ GameObject:
   - component: {fileID: 623733708}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1162,7 +1163,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 623733706}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1184,7 +1185,7 @@ GameObject:
   - component: {fileID: 630593826}
   m_Layer: 0
   m_Name: ThirdPoint
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1386,7 +1387,6 @@ GameObject:
   - component: {fileID: 825186054}
   - component: {fileID: 825186053}
   - component: {fileID: 825186052}
-  - component: {fileID: 825186057}
   - component: {fileID: 825186058}
   - component: {fileID: 825186056}
   m_Layer: 0
@@ -1434,7 +1434,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 825186051}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -1454,7 +1454,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 825186051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.704, y: 0.32, z: 0.12}
+  m_LocalPosition: {x: -0.704, y: 0.447, z: 0.12}
   m_LocalScale: {x: 0.4367277, y: 0.4367277, z: 0.4367277}
   m_Children:
   - {fileID: 2105608697}
@@ -1474,21 +1474,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPointHolder: {fileID: 960081434}
---- !u!54 &825186057
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 825186051}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &825186058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,7 +1495,7 @@ MonoBehaviour:
   - {fileID: 513277503}
   - {fileID: 1859375729}
   - {fileID: 1238508692}
-  LerpFraction: 0.1
+  LerpFraction: 0.12
 --- !u!1 &825193206 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000011564653176, guid: e7d8a04859422f342bc2631c804ec00c,
@@ -1637,7 +1622,7 @@ GameObject:
   - component: {fileID: 890493773}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1693,7 +1678,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 890493771}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1718,7 +1703,7 @@ GameObject:
   - component: {fileID: 909978782}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1774,7 +1759,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 909978780}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1954,7 +1939,7 @@ GameObject:
   - component: {fileID: 983405676}
   m_Layer: 0
   m_Name: SecondPoint
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1986,7 +1971,7 @@ GameObject:
   - component: {fileID: 1000104698}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2042,7 +2027,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1000104696}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2209,7 +2194,7 @@ GameObject:
   - component: {fileID: 1154990107}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2265,7 +2250,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1154990105}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2697,7 +2682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1628407607
 Transform:
   m_ObjectHideFlags: 0
@@ -2722,7 +2707,7 @@ GameObject:
   - component: {fileID: 1642761086}
   m_Layer: 0
   m_Name: FirstPoint
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3301,8 +3286,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1874171688}
   m_Layer: 0
-  m_Name: SecondPoint (1)
-  m_TagString: Untagged
+  m_Name: FifthPoint
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3330,8 +3315,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1875946994}
   m_Layer: 0
-  m_Name: ThirdPoint (1)
-  m_TagString: Untagged
+  m_Name: FourthPoint
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3426,7 +3411,7 @@ GameObject:
   - component: {fileID: 1948310475}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Distance_Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3482,7 +3467,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1948310473}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}

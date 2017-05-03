@@ -66,7 +66,7 @@ public class ManageDistance : MonoBehaviour
         lastNumber = targetNumber;
         target = targets[targetNumber].position;
         canChoose = false;
-        Debug.Log(targets[targetNumber].name);
+
 
     }
 
@@ -81,7 +81,7 @@ public class ManageDistance : MonoBehaviour
             //print("into MoveFunction While");
             timeSinceStarted += Time.deltaTime;
             
-            transform.position = Vector3.Lerp(transform.position, target, 0.4f * LerpFraction);
+            transform.position = Vector3.Lerp(transform.position, target, 0.2f * LerpFraction);
 
             // If the object has arrived, stop the coroutine
             if ((transform.position - target).magnitude < 0.001f)

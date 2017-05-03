@@ -30,7 +30,7 @@ public class ball_control : MonoBehaviour {
         buttonInfo = swordButton.GetComponent<SwordTipCollision>();
         timeTilSpawn = (int)LevelType.intermediate;
         timerText = buttonInfo.getTimerTextObject();
-        timerText.text = "" + timeTilSpawn;
+        //timerText.text = "" + timeTilSpawn;
         spawner = GameObject.FindWithTag("Spawner");
         spawnerPosition = spawner.transform.position;
         spawnerPosition.y += 1.0f;
@@ -102,7 +102,7 @@ public class ball_control : MonoBehaviour {
        
       
 
-        int randomDelayTime = (int)Random.Range(4.0f, 6.0f);
+        float randomDelayTime = Random.Range(0.5f, 1.0f);
         
         GameObject spawned = Instantiate(targets[rand]);
 
@@ -132,7 +132,7 @@ public class ball_control : MonoBehaviour {
         //swapParts(spawned); //untested code
         spawned.transform.position = spawnerPosition;
         //spawned.transform.rotation.Set(0, -90, 0,0);
-        timerText.text = "Get Ready!!!";
+        //timerText.text = "Get Ready!!!";
         Invoke(startInvokeName, randomDelayTime);
 
     }
@@ -146,8 +146,9 @@ public class ball_control : MonoBehaviour {
         if(timeTilSpawn == 0)
         {
             SpawnTarget();           
-            timeTilSpawn = (int)LevelType.intermediate;
-            timerText.text = "get ready";
+           // timeTilSpawn = (int)LevelType.intermediate;
+            timeTilSpawn = (int)Random.Range(2.0f, 4.0f);
+            //timerText.text = "get ready";
 
         }
 

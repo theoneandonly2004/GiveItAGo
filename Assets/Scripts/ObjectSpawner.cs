@@ -3,10 +3,10 @@ using System.Collections;
 
 public class ObjectSpawner : MonoBehaviour {
     int score = 0;
-    float delayTime = 5.0f;
+    float delayTime = 3.0f;
     public GameObject balloonObject;
-    float maxXDiff = 2.5f , minXDiff = -0.5f;
-    float maxZDiff = 2.5f, minZDiff = -0.5f;
+    float maxXDiff = 1.5f , minXDiff = -0.5f;
+    float maxZDiff = 1.5f, minZDiff = -0.5f;
     int level = 1;
     int maxSpawns = 10;
     GameObject[] spawnPoints;
@@ -18,6 +18,7 @@ public class ObjectSpawner : MonoBehaviour {
         
         spawnPoints = GameObject.FindGameObjectsWithTag("Spawner");
         Invoke("Spawn", delayTime);
+        Spawn();
 	}
 	
 	// Update is called once per frame

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BalloonControl : MonoBehaviour {
 
@@ -10,7 +11,7 @@ public class BalloonControl : MonoBehaviour {
     bool isSwordAlive;
     int balloonNumber;
     int secondLevelSpawn = 1000;
-    int thirdLevelSpawn = 5000;
+    int thirdLevelSpawn = 2000;
     int balloonType;
     GameObject player;
     GameObject spawnedSword;
@@ -49,16 +50,17 @@ public class BalloonControl : MonoBehaviour {
         else if (balloonNumber >= secondLevelSpawn && balloonNumber < thirdLevelSpawn)
         {
             sword.SetActive(true);
-            this.gameObject.GetComponent<Renderer>().material.color = Color.black;
+            this.gameObject.GetComponent<Renderer>().material.color = Color.cyan;
             balloonType = 1;
            //spawnedSword =Instantiate(sword);
            // spawnedSword.transform.position = position;
         }
         else
         {
-            sword.SetActive(true);            
+            sword.SetActive(true); 
+            Invoke("DestroySelf", 5.0f);           
             balloonType = 2;
-            this.gameObject.GetComponent<Renderer>().material.color = Color.cyan;       
+            this.gameObject.GetComponent<Renderer>().material.color = Color.black;       
         }
     }
 
@@ -70,6 +72,14 @@ public class BalloonControl : MonoBehaviour {
             spawn.Spawn();
         }
     }*/
+
+    void DestroySelf()
+    {
+        PauseMenu manager = GameObject.Find("GameManager").GetComponent<PauseMenu>();
+        manager.setScore(manager.getScore() + 50);
+        GameObject.Find("Score_Display").GetComponent<Text>().text = "Score " + manager.getScore();
+        Destroy(this.gameObject);
+    }
 
     public int getBalloonType()
     {

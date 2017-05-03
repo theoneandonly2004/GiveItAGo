@@ -52,6 +52,16 @@ public class UnlockableAchievement
 
     }
 
+    public string getLockedText()
+    {
+        return lockedText;
+    }
+
+    public string getUnlockedText()
+    {
+        return unlockedText;
+    }
+
     public string getTag()
     {
         return tag;
@@ -76,23 +86,23 @@ public class UnlockableAchievement
             //AchievementList.saveAchievements();
             if (!isUnlocked && displayAchievement)
                 {
-                Achievement.achievementUnlocked.SetActive(true);
-                Achievement.achievementUnlocked.GetComponentInChildren<Text>().text = unlockedText;
+                //Achievement.achievementUnlocked.SetActive(true);
+                //Achievement.achievementUnlocked.GetComponentInChildren<Text>().text = unlockedText;
                 //source.clip = clip;
                 //source.Play();
                 setUnlocked(true);
                 Debug.Log(name + " was unlockd");
                 AchievementList.saveAchievements();
-                AudioSource.PlayClipAtPoint(clip, playPos);
+                //AudioSource.PlayClipAtPoint(clip, playPos);
                 return true;
                // AchievementList.saveAchievements();
                 }
               else
                 {
 
-                setUnlocked(true);
-                Debug.Log(name + " was unlockd");
-                AchievementList.saveAchievements();
+                //setUnlocked(true);
+                Debug.Log(name + " was unlocked");
+               // AchievementList.saveAchievements();
 
                 return true;
                 }

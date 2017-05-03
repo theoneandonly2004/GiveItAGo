@@ -12,6 +12,8 @@ public class PauseMenu : MonoBehaviour
     int timeMultiplier = 1;
 
     GameObject[] spawnedButtons = new GameObject[2];
+    bool allowNextExerciseButton = true;
+    bool allowedMenuButton = true;
 
     bool isPaused = false;
 
@@ -25,6 +27,16 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void setAllowNextExerciseButton(bool isAllowed)
+    {
+        allowNextExerciseButton = isAllowed;
+    }
+
+    public void setAllowMenuButton(bool isAllowed)
+    {
+        allowedMenuButton = isAllowed;
     }
 
     void LoadNextLevel(bool isNextLevel)
@@ -100,13 +112,26 @@ public class PauseMenu : MonoBehaviour
 
             if (isPaused)
             {
+                if (allowNextExerciseButton)
+                {
                 spawnedButtons[0] = Instantiate(nextGameObject);
+                }
+
+                if (allowedMenuButton)
+                {
                 spawnedButtons[1] = Instantiate(exitObject);
+                }
             }
             else
             {
+                if (allowNextExerciseButton)
+                {
                 Destroy(spawnedButtons[0]);
+                }
+                if (allowedMenuButton)
+                {
                 Destroy(spawnedButtons[1]);
+                }
             }
         
 

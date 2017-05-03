@@ -15,8 +15,10 @@ public class collisionetection : MonoBehaviour {
 
     void OnTriggerEnter(Collider collision)
     {   
-        this.gameObject.transform.parent= collision.gameObject.transform.parent;
-        Debug.Log("mommy?");    
+        if(collision.gameObject.tag == "Target")
+        {
+            Destroy(collision.gameObject);
+        }
        
     }
 }

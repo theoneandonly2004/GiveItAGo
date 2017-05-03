@@ -8,12 +8,37 @@ public class ControllerManager : MonoBehaviour
     SteamVR_Controller.Device device;
     GameObject manager;
     PauseMenu pauser;
+    SwordTipCollision swordTip;
     // Use this for initialization
     void Start()
     {
         tracked = this.GetComponent<SteamVR_TrackedObject>();
         manager = KeyComponents.gameManager;
         pauser = KeyComponents.pauseMenu;
+        swordTip = GameObject.Find("sword_button").GetComponent<SwordTipCollision>();
+    }
+
+    bool checkIsAllowednextExercise()
+    {
+        if(swordTip.getExerciseName() != "Gauntlet")
+        {
+            return false;
+        }
+
+        if(swordTip.getExerciseNumber() +1 >= swordTip.getMaxExercises())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    bool checkIsAllowedMenuButton()
+    {
+        if(swordTip.getExerciseName() == "MainMenu")
+        {
+            return false;
+        }
+        return true;
     }
 
     // Update is called once per frame
@@ -24,7 +49,8 @@ public class ControllerManager : MonoBehaviour
         {
             //device.TriggerHapticPulse(3999);
             //TriggerPulse(0.2f,1.0f);
-
+            pauser.setAllowMenuButton(checkIsAllowedMenuButton());
+            pauser.setAllowNextExerciseButton(checkIsAllowednextExercise());
             pauser.managePause((int)device.GetAxis().x);
         }
     }

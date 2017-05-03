@@ -88,12 +88,12 @@ public class PlayerScore : MonoBehaviour {
    public void outputToFile()
     {
         ScoreStore scoreStore = new ScoreStore(exerciseScores);
-        StreamWriter writer = new StreamWriter(Application.dataPath + "//Files//playerScore.json");
+        StreamWriter writer = new StreamWriter(Application.dataPath + "//Resources//playerScore.json");
         string json = JsonUtility.ToJson(scoreStore,true);
         writer.Write(json);
         writer.Close();
 
-        Debug.Log(json);
+
 
     }
 
@@ -101,7 +101,7 @@ public class PlayerScore : MonoBehaviour {
    public void readFromFile()
     {
         
-        StreamReader reader = new StreamReader(Application.dataPath + "//Files//playerScore.json");
+        StreamReader reader = new StreamReader(Application.dataPath + "//Resources//playerScore.json");
         string json = reader.ReadToEnd();
         ScoreStore store = JsonUtility.FromJson<ScoreStore>(json);
         reader.Close();
